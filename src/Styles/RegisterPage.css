@@ -1,0 +1,127 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+.register-page{
+    min-height: calc(100dvh - 62px);
+    display: flex;
+    background-image: url("../assets/booknest-page-texture.png");
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.register-card {
+  width: 45%;
+  max-width: 1100px;
+  height: 610px;
+  display: flex;
+  border-radius: 24px;
+  overflow: hidden;
+  border: 1px solid #3B3D42;
+  box-shadow: 0 0 80px rgb(0, 0, 0);
+}
+
+.register-card-left {
+  flex: 1;
+  background-image: url("../assets/d63a7f70-506b-4a85-b6ca-a6f1ad606471.png");
+  background-size: 100% 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  border: none;
+}
+
+.brand-box-cover {
+  margin: 17px;
+}
+
+.register-card-right {
+  flex: 1.1;
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  align-items: column;
+  padding: 32px;
+  box-shadow: 0 0 80px #23282E;
+
+  background-image: url("../assets/resim_buyutulmus_4x.png");
+  background-position: center;
+}
+
+.register-card-right .register-top-header {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+.register-card-right .register-header {
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  align-self: flex-start;
+  color: white;
+  font-size: 12px;
+}
+
+.register-card-right .register-header h1 {
+  margin-top: 2%;
+  margin-left: 5%;
+  margin-bottom: 10px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 28px;
+  font-weight: 500;
+  line-height: 1.1;
+  color: #f4efe8;
+  width: fit-content;
+}
+
+.register-card-right .register-header p {
+  margin-left: 5%;
+  margin-top: 0px;
+  margin-bottom: 12%;
+  font-family: "Inter", sans-serif;
+  font-weight: 100;
+  font-size: 15px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.62);
+  width: fit-content;
+}
+
+.register-card-right .mascot-container {
+  width: 30%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.brand-mascot {
+  display: flex;
+  width: 100px;
+  height: 100px;
+  margin-bottom: 40px;
+  filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.35));
+  
+}
+
+.error-message {
+    color: red;
+    font-size: 14px;
+    margin: 0px;
+}
+
+.success-message {
+    color: green;
+    font-size: 14px;
+    margin: 0px;
+}

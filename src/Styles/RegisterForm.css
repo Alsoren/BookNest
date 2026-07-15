@@ -1,0 +1,87 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
+
+.register-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.register-form .input-group {
+  width: 90%;
+  height: 48px;
+  border: 1px solid #46535A;
+  border-radius: 10px;
+  display: flex;
+  align-self: center;
+  align-items: center;
+  padding: 0 12px;
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.015);
+}
+
+.register-form input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #F4F1EA;
+  font-size: 16px;
+}
+
+.checkbox-row {
+    display: flex;
+    align-items: center;
+    margin-left: 5.5%;
+    margin-top: 0.5%;
+    margin-bottom: 1.5%;
+}
+
+.register-form button {
+  width: 90%;
+  height: 48px;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  align-self: center;
+  background-color: #BA9164;
+  font-family: "Inter", "Poppins", Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: #12181D;
+  cursor: pointer;
+}
+
+.register-form button:hover {
+  background-color: #93714c;
+}
+
+.section-divider {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 2px 0;
+}
+
+.brand-icon-alt {
+  width: 28px;
+  height: 28px;
+}
+
+.divider-line {
+  flex: 1;
+  height: 1px;
+  background-color: rgba(255, 255, 255, 0.12);
+}
+
+.forgot-password{
+  width: fit-content;
+  display: flex;
+  align-items: center;
+  align-self: flex-end;
+  text-decoration: none;
+  color: #d6a96f;
+  font-family: "Inter", "Poppins", Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 100;
+}

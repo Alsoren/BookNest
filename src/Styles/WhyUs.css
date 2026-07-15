@@ -1,0 +1,89 @@
+.whyus-cover{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 350px;
+  width: 90%;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.whyus-chart-wrap{
+    display: flex;
+    flex-direction: row;
+}
+
+.whyus-cover h2 {
+  line-height: 1.05;
+  color: #f2eee8;
+  font-family: "Inter", "Poppins", Arial, sans-serif;
+  font-size: 25px;
+  font-weight: 600;
+  margin-bottom: 0px;
+}
+
+.whyus-image {
+    width: 50px;
+    height: 80px;
+    border-radius: 60px;
+    flex: 1;
+    margin: 10px;
+}
+
+.whyus-image img{
+    display: flex;
+    width: 80px;
+    height: 80px;
+}
+
+.whyus-chart-wrap{
+    margin-top: 10px;
+}
+
+.whyus-cover .whyus-chart {
+    display: flex;
+    color: white;
+    flex: 1;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    background-color: #11161B;
+    margin: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+    padding: 12px;
+    transition: flex 1s ease-in-out;
+    background-image: url("../assets/feature-background.png");
+    background-position: center;
+    background-size: cover;
+    box-shadow: 0 0 80px #0D131F;
+}
+
+.whyus-chart:hover {
+    flex: 1.2;
+    background-color: #181f25;
+    transform: scale(1.05);
+
+}
+
+.whyus-chart .whyus-content {
+    display: flex;
+    flex-direction: column;
+    flex: 3;
+    text-align: left;
+    margin-bottom: 15px;
+}
+
+.whyus-chart .whyus-content h2{
+    font-size: 18px;
+    margin-bottom: 10px;
+    font-family: "Inter", "Poppins", Arial, sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.whyus-chart .whyus-content p{
+    font-size: 14px;
+    margin-top: 0;
+    color: #b9c0c7;
+}

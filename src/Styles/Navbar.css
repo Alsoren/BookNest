@@ -1,0 +1,24 @@
+.navbar-wrapper{
+  width: 100%;
+  height: 70px;
+  border: 1px solid #3B3D42;
+  box-shadow: 0 0 80px rgb(0, 0, 0);
+  background-image: url("../assets/resim_buyutulmus_4x.png");
+
+}
+
+.navbar{}
+
+.navbar ul {
+  display: flex;
+  list-style: none;
+  gap: 20px;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar a {
+  text-decoration: none;
+  color: white;
+  margin-left: 100px;
+}

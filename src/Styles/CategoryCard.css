@@ -1,0 +1,144 @@
+.category-card {
+    position: relative;
+
+    width: 82%;
+    height: 255px;
+
+    overflow: hidden;
+
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.10);
+
+    background-color: #11161b;
+
+    color: white;
+    cursor: pointer;
+
+    font-family: "Inter", "Poppins", Arial, sans-serif;
+
+    box-shadow: 0 5px 14px rgba(0, 0, 0, 0.25);
+}
+
+/* Arka plan görseli */
+
+.category-background-image {
+    position: absolute;
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    object-fit: cover;
+    object-position: center;
+
+    transition:
+        transform 0.35s ease,
+        filter 0.35s ease;
+}
+
+/* Görselin üstündeki karartma */
+
+.category-dark-overlay {
+    position: absolute;
+    inset: 0;
+
+    z-index: 1;
+
+    background:
+        linear-gradient(
+            to bottom,
+            rgba(5, 9, 13, 0.05) 0%,
+            rgba(5, 9, 13, 0.20) 35%,
+            rgba(5, 9, 13, 0.75) 72%,
+            rgba(5, 9, 13, 0.96) 100%
+        );
+}
+
+/* İkon ve yazıların bulunduğu alan */
+
+.category-card-content {
+    position: absolute;
+
+    left: 0;
+    right: 0;
+    bottom: 19px;
+
+    z-index: 2;
+
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    padding: 0 8px;
+    box-sizing: border-box;
+
+    text-align: center;
+}
+
+/* Beyaz kategori ikonu */
+
+.category-icon {
+    width: 80px;
+    height: 80px;
+
+    display: block;
+
+    margin: 0 0 7px;
+
+    object-fit: contain;
+
+    /*
+      İkonun zaten beyazsa bunu kullanmana gerek yok.
+      Siyah bir ikon kullanıyorsan beyaza dönüştürür.
+    */
+    filter: brightness(0) invert(1);
+
+    transition: transform 0.25s ease;
+}
+
+/* Kategori ismi */
+
+.category-card-title {
+    margin: 0;
+
+    color: #ffffff;
+
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.2;
+
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.8);
+}
+
+/* Kitap sayısı */
+
+.category-book-count {
+    margin: 5px 0 0;
+
+    color: #c7cbd0;
+
+    font-size: 11px;
+    font-weight: 400;
+    line-height: 1.2;
+
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.8);
+}
+
+/* Hover */
+
+.category-card:hover .category-background-image {
+    transform: scale(1.06);
+    filter: brightness(1.08);
+}
+
+.category-card:hover .category-icon {
+    transform: translateY(-2px);
+}
+
+.category-card:hover {
+    border-color: rgba(214, 169, 111, 0.45);
+}

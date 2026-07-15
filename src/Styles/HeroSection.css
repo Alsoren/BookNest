@@ -1,0 +1,148 @@
+.hero-wrapper {
+  width: 90%;
+  margin: 70px auto 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.hero-section {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin-bottom: 10px;
+    gap: 20px;
+}
+
+.hero-image {
+
+    display: flex;
+    border-radius: 20px;
+    box-shadow: 0 0 80px #0A0C11;
+}
+
+.hero-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.hero-content {
+    flex: 1;
+    color: #fff;
+    padding: 20px;
+    text-align: left;
+}
+
+.hero-title {
+  margin: 0;
+  font-size: 33px;
+  line-height: 1.05;
+  font-weight: 700;
+  color: #f2eee8;
+  font-family: Georgia, serif;
+}
+
+.hero-title span {
+  color: #FABA4A;
+}
+
+.hero-description {
+  margin-top: 24px;
+  max-width: 470px;
+  color: #b9c0c7;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.hero-buttons {
+  margin-top: 24px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.primary-btn,
+.secondary-btn {
+  height: 46px;
+  padding: 0 18px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 550;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+}
+
+.primary-btn {
+  border: none;
+  background-color: #FABA4A;
+  color: #1a120c;
+}
+
+.primary-btn:hover {
+  border: none;
+  background-color: #f7cc80;
+}
+
+.secondary-btn {
+  background-color: transparent;
+  color: #d8c7b1;
+  border: 1px solid #FABA4A;
+}
+
+.secondary-btn:hover {
+  background-color: #0d1820;
+  color: #d8c7b1;
+  border: 1px solid #c8955d;
+}
+
+.hero-stats {
+  margin-top: 24px;
+  display: flex;
+  align-items: center;
+  gap: 48px;
+}
+
+.stat-box {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.stat-icon {
+  font-size: 30px;
+  color: #c8955d;
+}
+
+.stat-box h3 {
+  margin: 0;
+  color: #e7e7e7;
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.stat-box p {
+  margin: 4px 0 0;
+  color: #9fa6ad;
+  font-size: 14px;
+}
+
+.hero-image-box {
+  flex: 1.2;
+  height: 500px;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid rgba(200, 149, 93, 0.25);
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.45);
+}
+
+.hero-image-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

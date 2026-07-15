@@ -1,0 +1,100 @@
+.book-card {
+    width: 100%;
+    min-width: 0;
+    height: auto;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    margin: 0;
+    padding: 0;
+
+    background: transparent;
+    border: none;
+    border-radius: 0;
+
+    color: white;
+    text-align: left;
+    cursor: pointer;
+
+    font-family: "Inter", "Poppins", Arial, sans-serif;
+}
+
+/* Kartın üzerine gelince kutu rengi oluşmasın */
+.book-card:hover {
+    background: transparent;
+}
+
+/* Kitap kapağı */
+.book-card img {
+    width: 100px;
+    height: 150px;
+    
+    aspect-ratio: 2 / 3;
+
+    display: block;
+
+    margin: 0;
+    align-self: stretch;
+
+    object-fit: cover;
+    object-position: center;
+
+    border-radius: 7px;
+
+    transition: transform 0.25s ease;
+}
+
+.book-card:hover img {
+
+    transform: translateY(-3px);
+}
+
+/* Kapak altındaki bilgiler */
+.book-card-content {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+
+    padding: 0;
+    margin-top: 7px;
+}
+
+/*
+Kapakların üzerinde kitap adı zaten yazdığı için
+alttaki kitap başlığını gizliyoruz.
+*/
+.book-card h3 {
+    display: none;
+}
+
+/* Yalnızca bu kartın içindeki paragraflar */
+.book-card p {
+    margin: 4px 0 0;
+
+    color: #b9c0c7;
+
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.25;
+}
+
+/* Puan alanın bu class adına sahipse */
+.book-rating {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+
+    margin-top: 7px;
+
+    color: #f3c440;
+
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.book-rating svg {
+    font-size: 11px;
+}

@@ -1,0 +1,88 @@
+.popup-overlay {
+    position: fixed;
+    inset: 0;
+
+    background: rgba(0,0,0,.6);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    z-index: 1000;
+}
+
+.popup{
+    width: 550px;
+    max-width: 90vw;
+
+    background: #080E14;
+    border-radius: 15px;
+    padding: 30px;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+
+    grid-template-areas:
+        "content image"
+        "description description";
+
+    gap: 25px;
+    color: wheat;
+
+    position: relative;
+}
+
+.close-btn{
+    position:absolute;
+    top:15px;
+    right:15px;
+    background-color: #181F25;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    color: white;
+    border: 1px solid rgba(200, 149, 93, 0.25);
+}
+
+.add-to-lib {
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  margin-top: 30px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  background-color: #c8955d;
+  color: #1a120c;
+  border: 1px solid rgba(194, 180, 166, 0.25);
+}
+
+.popup-content{
+    grid-area: content;
+}
+
+.popup-content p{
+    margin: 10px;
+}
+
+.popup-image{
+    grid-area: image;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.popup-image img{
+    width:150px;
+    border-radius:10px;
+}
+
+.popup-description{
+    grid-area: description;
+    color: #b9c0c7;
+    border-top:1px solid #ddd;
+    padding-top:20px;
+}

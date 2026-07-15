@@ -1,0 +1,141 @@
+.hero-wrapper {
+  width: 95%;
+  height: 240px;
+  margin: 10px auto 0;
+
+  display: flex;
+  justify-content: center;
+
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.hero-section {
+  width: 100%;
+  max-width: 1600px;
+
+  margin: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+
+  gap: 20px;
+}
+
+.hero-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 20px;
+  box-shadow: 0 0 80px #0A0C11;
+
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.left-hero-image {
+  width: 500px;
+  height: 240px;
+}
+
+.right-hero-image {
+  width: 130px;
+  height: 230px;
+}
+
+.hero-image img {
+  width: 100%;
+  height: 100%;
+
+  display: block;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.hero-content {
+  height: 270px;
+
+  display: flex;
+  flex-direction: row;
+
+  text-align: center;
+  color: white;
+}
+
+.hero-content .profile-avatar {
+  width: 160px;
+  height: 160px;
+
+  border-radius: 50%;
+  overflow: hidden;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 3px solid #B99163;
+  background: rgba(255, 255, 255, 0.06);
+
+  box-shadow: 0 0 80px rgba(185, 145, 99, 0.35);
+}
+
+.profile-avatar img {
+  width: 100%;
+  height: 100%;
+
+  display: block;
+  object-fit: cover;
+}
+
+.hero-content .profile-infos {
+  margin-left: 20px;
+  text-align: left;
+}
+
+.profile-infos h1,
+.profile-infos p {
+  margin: 10px;
+}
+
+.profile-infos .profile-stats{
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  margin-top: auto;
+  margin-left: 10px;
+}
+
+.profile-stats .stat {
+  display: flex;
+  width: 170px;
+  height: 80px;
+
+  align-items: center;
+  flex-direction: row;
+
+  background-color: #11141A;
+}
+
+.profile-stats img {
+  width: 60px;
+  height: 60px;
+}
+
+.profile-stats .stat p{
+  margin: 5px;
+}
+
+.profile-stats .stat .stat-number{
+    font-size: 18px;
+    line-height: 1.05;
+    font-weight: 600;
+}
+
+.profile-stats .stat .stat-title{
+  color: #b9c0c7;
+  font-size: 14px;
+  line-height: 1.05;
+  font-weight: 400;
+}
+

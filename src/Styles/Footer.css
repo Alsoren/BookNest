@@ -1,0 +1,133 @@
+.footer-cover {
+    display: flex;
+    width: 90%;
+    height: 200px;;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    padding: 10px;
+}
+
+.footer-cover .footer-mid, .footer-left, .footer-right{
+    display: flex;
+    flex: 1;
+    height: 200px;
+    padding: 20px;
+}
+
+.footer-left {
+    text-align: left;
+    flex-direction: column;
+}
+
+.footer-left p{
+    margin: 10px ;
+    color: #b9c0c7;
+}
+
+.footer-icon-cover {
+    flex-direction: row;
+    font-size: 20px;
+    margin: 10px;
+}
+
+.footer-icon{
+    margin-right: 10px;
+    margin-left: 0;
+    color: white;
+}
+
+.footer-mid {
+    flex-direction: row;
+}
+
+.footer-mid .footer-links{
+    display: flex;
+    width: 30%;
+    flex-direction: column;
+}
+
+.footer-mid h3 {
+  text-decoration: none;
+  color: #d6a96f;
+  font-family: "Inter", "Poppins", Arial, sans-serif;
+  font-weight: 100;
+  margin: 4px;
+}
+
+.footer-mid a {
+  text-decoration: none;
+  color: #ccc7c1;
+  font-family: "Inter", "Poppins", Arial, sans-serif;
+  font-weight: 100;
+  margin: 3px;
+}
+
+.footer-right{
+    flex-direction: column;
+}
+
+.footer-right h3{
+  text-decoration: none;
+  color: #d6a96f;
+  font-family: "Inter", "Poppins", Arial, sans-serif;
+  font-weight: 100;
+  margin: 4px;
+}
+
+.footer-right p{
+  text-decoration: none;
+  color: #ccc7c1;
+  font-family: "Inter", "Poppins", Arial, sans-serif;
+  font-weight: 100;
+  margin: 10px;
+}
+
+.footer-right .newsletter-input{
+  width: 70%;
+  height: 38px;
+  margin: 10px;
+  border: 1px solid #46535A;
+  border-radius: 12px;
+  display: flex;
+  align-self: center;
+  align-items: center;
+  padding: 0 12px;
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.015);
+
+}
+
+.newsletter-input {
+    position: relative;
+    width: 350px;
+}
+
+.footer-right input {
+  flex: 1;
+  background: transparent;
+  height: 100%;
+  border: none;
+  outline: none;
+  color: #F4F1EA;
+  font-size: 16px;
+  padding: 0;
+}
+
+.footer-right button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 55px;
+    height: 100%;
+    border: none;
+    border-radius: 0 12px 12px 0; /* Sadece sağ köşeler */
+    background: #C28A52;
+    cursor: pointer;
+}
+
+
+
+
