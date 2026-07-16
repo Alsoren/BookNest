@@ -8,14 +8,14 @@ import book_monster from "../assets/book_monster.png";
 
 function HeroSection() {
   return (
-    <div className="hero-wrapper">
-      <section className="hero-section">
+    <div className="profile-wrapper">
+      <section className="profile-section">
 
-        <div className="hero-image left-hero-image">
+        <div className="profile-hero-image left-prohero-image">
           <img src={heroImage1} alt="Book reading" />
         </div>
 
-        <div className="hero-content">
+        <div className="profile-content">
           <div>
             <div className="profile-avatar">
               <img src={book_monster} alt="Profile" />
@@ -52,7 +52,7 @@ function HeroSection() {
           </div>
         </div>
 
-        <div className="hero-image right-hero-image">
+        <div className="hero-image right-prohero-image">
           <img src={heroImage2} alt="Book reading" />
         </div>
 
