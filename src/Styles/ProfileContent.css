@@ -1,0 +1,99 @@
+.profile-conten-wrapper {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 30px 40px;
+    box-sizing: border-box;
+}
+
+.reading-books,
+.most-readed-categories,
+.reading-stat,
+.fav-books {
+    width: calc(50% - 10px);
+    min-height: 430px;
+    padding: 22px;
+    background: #111a27;
+    border: 1px solid #263241;
+    border-radius: 16px;
+    box-sizing: border-box;
+}
+
+.reading-books-header,
+.reading-categories-header,
+.reading-stats-header,
+.fav-books-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.reading-books-header img,
+.reading-categories-header img,
+.reading-stats-header img,
+.fav-books-header img {
+    width: 28px;
+    height: 28px;
+    margin-right: 12px;
+    object-fit: contain;
+}
+
+.reading-books-header p,
+.reading-categories-header p,
+.reading-stats-header p,
+.fav-books-header p {
+    margin: 0;
+    color: white;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.reading-books-header a,
+.fav-books-header a {
+    margin-left: auto;
+    color: #b8bec7;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+.reading-books-header a:hover,
+.fav-books-header a:hover {
+    color: #f5b82e;
+}
+
+.reading-books-sec,
+.fav-books-sec {
+    display: flex;
+    gap: 14px;
+}
+
+.reading-categories-sec {
+    min-height: 340px;
+    display: flex;
+    flex-direction: column;
+}
+
+.reading-categories-sec button {
+    width: 100%;
+    height: 50px;
+    margin-top: auto;
+    background: #182230;
+    color: #d8dce2;
+    border: 1px solid #34404e;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 750px) {
+    .profile-conten-wrapper {
+        padding: 20px;
+    }
+
+    .reading-books,
+    .most-readed-categories,
+    .reading-stat,
+    .fav-books {
+        width: 100%;
+    }
+}
