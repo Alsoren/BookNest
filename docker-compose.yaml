@@ -1,0 +1,52 @@
+version: '3.8'
+
+services:
+  # --- VERİTABANI SERVİSİ (PostgreSQL) ---
+  db:
+    image: postgres:15-alpine
+    container_name: spring-react-db
+    environment:
+      POSTGRES_DB: mydatabase
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mypassword
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U myuser -d mydatabase"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # --- BACKEND SERVİSİ (Spring Boot) ---
+  backend:
+    build:
+      context: ./booknest-backend
+      dockerfile: Dockerfile
+    container_name: spring-backend
+    ports:
+      - "8080:8080"
+    environment:
+      # Veritabanı host adı olarak compose üzerindeki servis adını ('db') yazıyoruz
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/mydatabase
+      SPRING_DATASOURCE_USERNAME: myuser
+      SPRING_DATASOURCE_PASSWORD: mypassword
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+    depends_on:
+      db:
+        condition: service_healthy
+
+  # --- FRONTEND SERVİSİ (React) ---
+  frontend:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    container_name: react-frontend
+    ports:
+      - "3000:80" # Localde tarayıcıdan localhost:3000 ile erişeceksiniz
+    depends_on:
+      - backend
+
+volumes:
+  pgdata:
