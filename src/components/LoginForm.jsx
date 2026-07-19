@@ -70,8 +70,6 @@ function LoginForm() {
                 setEmail("");
                 setPassword("");
 
-                console.log("JWT Token:", data.token);
-
                 localStorage.setItem("token", data.token);
 
                 window.dispatchEvent(new Event("authChanged"));

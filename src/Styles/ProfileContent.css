@@ -1,99 +1,443 @@
-.profile-conten-wrapper {
-    width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    padding: 30px 40px;
-    box-sizing: border-box;
+.profile-content-wrapper {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+  padding: 30px 40px 50px;
+  box-sizing: border-box;
 }
 
-.reading-books,
-.most-readed-categories,
-.reading-stat,
-.fav-books {
-    width: calc(50% - 10px);
-    min-height: 430px;
-    padding: 22px;
-    background: #111a27;
-    border: 1px solid #263241;
-    border-radius: 16px;
-    box-sizing: border-box;
+/* Ortak panel */
+
+.profile-panel {
+  min-width: 0;
+  min-height: 430px;
+  padding: 22px;
+  overflow: hidden;
+  box-sizing: border-box;
+
+  background: #111a27;
+  border: 1px solid #263241;
+  border-radius: 16px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.16);
 }
 
-.reading-books-header,
-.reading-categories-header,
-.reading-stats-header,
-.fav-books-header {
-    display: flex;
-    align-items: center;
-    margin-bottom: 24px;
+.profile-panel-header {
+  min-height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 20px;
 }
 
-.reading-books-header img,
-.reading-categories-header img,
-.reading-stats-header img,
-.fav-books-header img {
-    width: 28px;
-    height: 28px;
-    margin-right: 12px;
-    object-fit: contain;
+.profile-panel-title {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
-.reading-books-header p,
-.reading-categories-header p,
-.reading-stats-header p,
-.fav-books-header p {
-    margin: 0;
-    color: white;
-    font-size: 20px;
-    font-weight: 600;
+.profile-panel-title img {
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  object-fit: contain;
 }
 
-.reading-books-header a,
-.fav-books-header a {
-    margin-left: auto;
-    color: #b8bec7;
-    font-size: 14px;
-    text-decoration: none;
+.profile-panel-title h2 {
+  margin: 0;
+  overflow: hidden;
+
+  color: #ffffff;
+  font-size: 20px;
+  font-weight: 650;
+  line-height: 1.3;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
-.reading-books-header a:hover,
-.fav-books-header a:hover {
-    color: #f5b82e;
+.profile-panel-link {
+  flex-shrink: 0;
+
+  color: #b8bec7;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+
+  transition:
+    color 0.2s ease,
+    transform 0.2s ease;
 }
 
-.reading-books-sec,
-.fav-books-sec {
-    display: flex;
-    gap: 14px;
+.profile-panel-link:hover {
+  color: #f5b82e;
+  transform: translateX(2px);
 }
 
-.reading-categories-sec {
-    min-height: 340px;
-    display: flex;
+/* Şu anda okuyorum listesi */
+
+/*
+  Bir kitap kartı: 84px
+  Üç kitap: 84 × 3 = 252px
+  İki boşluk: 11 × 2 = 22px
+  Toplam: 274px
+*/
+
+.reading-books-list {
+  height: 274px;
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  padding-right: 9px;
+  box-sizing: border-box;
+
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: #536477 #172231;
+}
+
+.reading-books-list::-webkit-scrollbar {
+  width: 7px;
+}
+
+.reading-books-list::-webkit-scrollbar-track {
+  background: #172231;
+  border-radius: 20px;
+}
+
+.reading-books-list::-webkit-scrollbar-thumb {
+  background: #536477;
+  border-radius: 20px;
+}
+
+.reading-books-list::-webkit-scrollbar-thumb:hover {
+  background: #f5b82e;
+}
+
+/* Tek kitap kartı */
+
+.reading-book-card {
+  width: 100%;
+  height: 84px;
+  min-height: 84px;
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  gap: 14px;
+
+  padding: 8px 10px;
+  box-sizing: border-box;
+
+  background: #172231;
+  border: 1px solid #293747;
+  border-radius: 12px;
+
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.reading-book-card:hover {
+  background: #1a2838;
+  border-color: #46566a;
+  transform: translateX(2px);
+}
+
+.reading-book-cover {
+  width: 48px;
+  height: 68px;
+  flex-shrink: 0;
+
+  background: #263241;
+  border-radius: 7px;
+  object-fit: cover;
+}
+
+.reading-book-details {
+  min-width: 0;
+  flex: 1;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.reading-book-text {
+  min-width: 0;
+  flex: 1;
+}
+
+.reading-book-text h3 {
+  margin: 0 0 5px;
+  overflow: hidden;
+
+  color: #f8fafc;
+  font-size: 15px;
+  font-weight: 650;
+  line-height: 1.3;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.reading-book-author {
+  margin: 0;
+  overflow: hidden;
+
+  color: #98a4b3;
+  font-size: 13px;
+  line-height: 1.4;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.reading-book-meta {
+  flex-shrink: 0;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+}
+
+.reading-book-category {
+  max-width: 125px;
+  padding: 4px 9px;
+  overflow: hidden;
+
+  color: #c9d2dc;
+  background: #243244;
+  border-radius: 999px;
+
+  font-size: 11px;
+  line-height: 1.2;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.reading-book-rating {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+
+  color: #f5b82e;
+  font-size: 13px;
+  font-weight: 650;
+}
+
+/* Loading, hata ve boş liste */
+
+.profile-state-message {
+  width: 100%;
+  min-height: 274px;
+  flex-shrink: 0;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+
+  padding: 24px;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.profile-state-message p {
+  margin: 0;
+
+  color: #aeb8c4;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.profile-state-message a {
+  color: #f5b82e;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.profile-state-message a:hover {
+  text-decoration: underline;
+}
+
+.profile-error-message p {
+  color: #ff8d8d;
+}
+
+.profile-loading-spinner {
+  width: 28px;
+  height: 28px;
+
+  border: 3px solid #2d3a49;
+  border-top-color: #f5b82e;
+  border-radius: 50%;
+
+  animation: profile-spinner 0.8s linear infinite;
+}
+
+@keyframes profile-spinner {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Diğer paneller */
+
+.reading-categories-section,
+.profile-placeholder-area,
+.favorite-books-section {
+  min-height: 330px;
+  display: flex;
+  flex-direction: column;
+}
+
+.profile-placeholder-text {
+  margin: auto;
+  padding: 20px;
+
+  color: #8f9baa;
+  font-size: 14px;
+  line-height: 1.6;
+  text-align: center;
+}
+
+.profile-secondary-button {
+  width: 100%;
+  min-height: 50px;
+  margin-top: auto;
+  padding: 0 18px;
+
+  color: #d8dce2;
+  background: #182230;
+  border: 1px solid #34404e;
+  border-radius: 10px;
+
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    color 0.2s ease,
+    background-color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.profile-secondary-button:hover {
+  color: #f5b82e;
+  background: #1d2a39;
+  border-color: #536174;
+}
+
+/* Tablet */
+
+@media screen and (max-width: 1000px) {
+  .profile-content-wrapper {
+    grid-template-columns: 1fr;
+    padding: 26px 28px 45px;
+  }
+
+  .profile-panel {
+    min-height: auto;
+  }
+}
+
+/* Mobil */
+
+@media screen and (max-width: 600px) {
+  .profile-content-wrapper {
+    gap: 16px;
+    padding: 18px 14px 36px;
+  }
+
+  .profile-panel {
+    padding: 17px;
+    border-radius: 13px;
+  }
+
+  .profile-panel-header {
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+
+  .profile-panel-title {
+    gap: 9px;
+  }
+
+  .profile-panel-title img {
+    width: 24px;
+    height: 24px;
+  }
+
+  .profile-panel-title h2 {
+    font-size: 17px;
+  }
+
+  .profile-panel-link {
+    font-size: 12px;
+  }
+
+  /*
+    Mobilde kart yüksekliği 112px olur.
+    Üç kitap ve iki boşluk:
+    112 × 3 + 11 × 2 = 358px
+  */
+
+  .reading-books-list {
+    height: 358px;
+  }
+
+  .reading-book-card {
+    height: 112px;
+    min-height: 112px;
+    align-items: flex-start;
+    gap: 11px;
+    padding: 10px;
+  }
+
+  .reading-book-cover {
+    width: 56px;
+    height: 88px;
+  }
+
+  .reading-book-details {
+    height: 100%;
+    align-items: flex-start;
     flex-direction: column;
-}
+    justify-content: space-between;
+    gap: 7px;
+  }
 
-.reading-categories-sec button {
+  .reading-book-text {
     width: 100%;
-    height: 50px;
-    margin-top: auto;
-    background: #182230;
-    color: #d8dce2;
-    border: 1px solid #34404e;
-    border-radius: 10px;
-    cursor: pointer;
-}
+  }
 
-@media screen and (max-width: 750px) {
-    .profile-conten-wrapper {
-        padding: 20px;
-    }
+  .reading-book-meta {
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
 
-    .reading-books,
-    .most-readed-categories,
-    .reading-stat,
-    .fav-books {
-        width: 100%;
-    }
+  .reading-book-category {
+    max-width: 150px;
+  }
+
+  .profile-state-message {
+    min-height: 358px;
+  }
 }

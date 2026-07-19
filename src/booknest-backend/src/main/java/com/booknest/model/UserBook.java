@@ -35,7 +35,8 @@ public class UserBook {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private ReadingStatus readingStatus;
+    @Builder.Default
+    private ReadingStatus readingStatus = ReadingStatus.valueOf("WANT_TO_READ");
 
     @Builder.Default
     private boolean favorite = false;

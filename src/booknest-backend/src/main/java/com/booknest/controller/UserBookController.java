@@ -4,9 +4,11 @@ import com.booknest.dto.AddUserBookRequest;
 import com.booknest.model.ReadingStatus;
 import com.booknest.model.UserBook;
 import com.booknest.service.UserBookService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,14 +22,19 @@ public class UserBookController {
 
     @PostMapping
     public ResponseEntity<UserBook> addBookToUser(
-            @RequestBody AddUserBookRequest request
+            Authentication authentication,
+            @Valid @RequestBody AddUserBookRequest request
     ) {
+
+        String email = authentication.getName();
 
         UserBook savedUserBook =
                 userBookService.addBookToUser(
-                        request.getUserId(),
+                        email,
                         request.getBookId(),
-                        request.getReadingStatus()
+                        request.getReadingStatus(),
+                        request.isFavorite(),
+                        request.getRating()
                 );
 
         return ResponseEntity
@@ -35,31 +42,31 @@ public class UserBookController {
                 .body(savedUserBook);
     }
 
-
-    @GetMapping("/user/{userId}")
-    public ResponseEntity<List<UserBook>> getUserBooks(
-            @PathVariable Long userId
+    @GetMapping("/me")
+    public ResponseEntity<List<UserBook>> getMyBooks(
+            Authentication authentication
     ) {
 
-        List<UserBook> userBooks =
-                userBookService.getUserBooks(userId);
+        String email = authentication.getName();
 
-        return ResponseEntity.ok(userBooks);
+        return ResponseEntity.ok(
+                userBookService.getUserBooks(email)
+        );
     }
 
-    @GetMapping("/user/{userId}/status/{readingStatus}")
-    public ResponseEntity<List<UserBook>> getUserBooksByStatus(
-            @PathVariable Long userId,
+    @GetMapping("/me/status/{readingStatus}")
+    public ResponseEntity<List<UserBook>> getMyBooksByStatus(
+            Authentication authentication,
             @PathVariable ReadingStatus readingStatus
     ) {
 
-        List<UserBook> userBooks =
-                userBookService.getUserBooksByStatus(
-                        userId,
-                        readingStatus
-                );
+        String email = authentication.getName();
 
-        return ResponseEntity.ok(userBooks);
+        return ResponseEntity.ok(
+                userBookService.getUserBooksByStatus(
+                        email,
+                        readingStatus
+                )
+        );
     }
 }
-

@@ -15,25 +15,34 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class UserBookService {
+
     private final UserBookRepository userBookRepository;
     private final UserRepository userRepository;
     private final BookRepository bookRepository;
 
     public UserBook addBookToUser(
-            Long userId,
+            String email,
             Long bookId,
-            ReadingStatus readingStatus
-    ){
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("Kullanıcı bulunamadı"));
+            ReadingStatus readingStatus,
+            boolean favorite,
+            Integer rating
+    ) {
+
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() ->
+                        new RuntimeException("Kullanıcı bulunamadı")
+                );
 
         Book book = bookRepository.findById(bookId)
-                .orElseThrow(() -> new RuntimeException("Kitap bulunamadı"));
+                .orElseThrow(() ->
+                        new RuntimeException("Kitap bulunamadı")
+                );
 
-        boolean alreadyExists = userBookRepository.existsByUserIdAndBookId(
-                userId,
-                bookId
-        );
+        boolean alreadyExists =
+                userBookRepository.existsByUserIdAndBookId(
+                        user.getId(),
+                        bookId
+                );
 
         if (alreadyExists) {
             throw new RuntimeException(
@@ -45,24 +54,36 @@ public class UserBookService {
                 .user(user)
                 .book(book)
                 .readingStatus(readingStatus)
-                .favorite(false)
+                .favorite(favorite)
+                .rating(rating)
                 .build();
 
         return userBookRepository.save(userBook);
     }
 
-    public List <UserBook> getUserBooks(Long userId){
-        return userBookRepository.findByUserId(userId);
+    public List<UserBook> getUserBooks(String email) {
+
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() ->
+                        new RuntimeException("Kullanıcı bulunamadı")
+                );
+
+        return userBookRepository.findByUserId(user.getId());
     }
 
     public List<UserBook> getUserBooksByStatus(
-            Long userId,
+            String email,
             ReadingStatus readingStatus
-    ){
-        return userBookRepository
-                .findByUserIdAndReadingStatus(
-                        userId,
-                        readingStatus
+    ) {
+
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() ->
+                        new RuntimeException("Kullanıcı bulunamadı")
                 );
+
+        return userBookRepository.findByUserIdAndReadingStatus(
+                user.getId(),
+                readingStatus
+        );
     }
 }

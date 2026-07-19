@@ -93,8 +93,6 @@ function RegisterForm() {
                 setAgreeToUpdates(false);
                 setAgreeToTerms(false);
 
-                console.log("JWT Token:", data.token);
-
                 localStorage.setItem("token", data.token);
 
                 window.dispatchEvent(new Event("authChanged"));

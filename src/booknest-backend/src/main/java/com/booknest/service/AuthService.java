@@ -26,6 +26,10 @@ public class AuthService {
 
     public RegisterResponse register(RegisterRequest request) {
 
+        if (userRepository.existsByName(request.getName())) {
+            return new RegisterResponse("Bu kullanıcı adı zaten kullanılıyor.", false);
+        }
+
         if (userRepository.existsByEmail(request.getEmail())) {
             return new RegisterResponse("Bu email zaten kullanılıyor.", false);
         }

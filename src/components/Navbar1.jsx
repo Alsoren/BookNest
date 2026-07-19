@@ -18,8 +18,6 @@ function Navbar1() {
     function checkLoginStatus() {
         const token = localStorage.getItem("token");
 
-        console.log("Navbar içindeki token:", token);
-
         setIsLoggedIn(Boolean(token));
     }
 
@@ -47,7 +45,7 @@ function Navbar1() {
 
         window.dispatchEvent(new Event("authChange"));
 
-        navigate("/");
+        navigate("/login");
     }
 
     return (
