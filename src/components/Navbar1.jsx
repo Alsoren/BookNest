@@ -107,7 +107,7 @@ function Navbar1() {
                       </NavLink>
 
                       <NavLink
-                          to="/categories"
+                          to="/library"
                           className={({ isActive }) =>
                               isActive
                                   ? "navbar-link active"
