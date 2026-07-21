@@ -8,7 +8,9 @@ import com.booknest.repository.BookRepository;
 import com.booknest.repository.UserBookRepository;
 import com.booknest.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -71,6 +73,33 @@ public class UserBookService {
         return userBookRepository.findByUserId(user.getId());
     }
 
+
+    public UserBook getMyBook(
+            String email,
+            Long bookId
+    ) {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() ->
+                        new ResponseStatusException(
+                                HttpStatus.NOT_FOUND,
+                                "Kullanıcı bulunamadı"
+                        )
+                );
+
+        return userBookRepository
+                .findByUserIdAndBookId(
+                        user.getId(),
+                        bookId
+                )
+                .orElseThrow(() ->
+                        new ResponseStatusException(
+                                HttpStatus.NOT_FOUND,
+                                "Kitap kullanıcının kütüphanesinde bulunmuyor"
+                        )
+                );
+    }
+
+
     public List<UserBook> getUserBooksByStatus(
             String email,
             ReadingStatus readingStatus
@@ -85,5 +114,35 @@ public class UserBookService {
                 user.getId(),
                 readingStatus
         );
+    }
+
+    public UserBook updateReadingStatus(
+            String email,
+            Long bookId,
+            ReadingStatus readingStatus
+    ) {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() ->
+                        new ResponseStatusException(
+                                HttpStatus.NOT_FOUND,
+                                "Kullanıcı bulunamadı"
+                        )
+                );
+
+        UserBook userBook = userBookRepository
+                .findByUserIdAndBookId(
+                        user.getId(),
+                        bookId
+                )
+                .orElseThrow(() ->
+                        new ResponseStatusException(
+                                HttpStatus.NOT_FOUND,
+                                "Kitap kullanıcının kütüphanesinde bulunmuyor"
+                        )
+                );
+
+        userBook.setReadingStatus(readingStatus);
+
+        return userBookRepository.save(userBook);
     }
 }

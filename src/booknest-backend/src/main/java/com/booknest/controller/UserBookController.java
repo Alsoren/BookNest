@@ -1,6 +1,7 @@
 package com.booknest.controller;
 
 import com.booknest.dto.AddUserBookRequest;
+import com.booknest.dto.UpdateReadingStatusRequest;
 import com.booknest.model.ReadingStatus;
 import com.booknest.model.UserBook;
 import com.booknest.service.UserBookService;
@@ -20,6 +21,7 @@ public class UserBookController {
 
     private final UserBookService userBookService;
 
+    // Kullanıcının kütüphanesine kitap ekler
     @PostMapping
     public ResponseEntity<UserBook> addBookToUser(
             Authentication authentication,
@@ -42,6 +44,7 @@ public class UserBookController {
                 .body(savedUserBook);
     }
 
+    // Giriş yapan kullanıcının bütün kitaplarını getirir
     @GetMapping("/me")
     public ResponseEntity<List<UserBook>> getMyBooks(
             Authentication authentication
@@ -49,11 +52,31 @@ public class UserBookController {
 
         String email = authentication.getName();
 
-        return ResponseEntity.ok(
-                userBookService.getUserBooks(email)
-        );
+        List<UserBook> userBooks =
+                userBookService.getUserBooks(email);
+
+        return ResponseEntity.ok(userBooks);
     }
 
+    // Belirli bir kitap kullanıcının kütüphanesinde mi kontrol eder
+    @GetMapping("/me/book/{bookId}")
+    public ResponseEntity<UserBook> getMyBook(
+            @PathVariable Long bookId,
+            Authentication authentication
+    ) {
+
+        String email = authentication.getName();
+
+        UserBook userBook =
+                userBookService.getMyBook(
+                        email,
+                        bookId
+                );
+
+        return ResponseEntity.ok(userBook);
+    }
+
+    // Kullanıcının belirli durumdaki kitaplarını getirir
     @GetMapping("/me/status/{readingStatus}")
     public ResponseEntity<List<UserBook>> getMyBooksByStatus(
             Authentication authentication,
@@ -62,11 +85,32 @@ public class UserBookController {
 
         String email = authentication.getName();
 
-        return ResponseEntity.ok(
+        List<UserBook> userBooks =
                 userBookService.getUserBooksByStatus(
                         email,
                         readingStatus
-                )
-        );
+                );
+
+        return ResponseEntity.ok(userBooks);
+    }
+
+    // Kitabın okuma durumunu değiştirir
+    @PatchMapping("/me/book/{bookId}/status")
+    public ResponseEntity<UserBook> updateReadingStatus(
+            Authentication authentication,
+            @PathVariable Long bookId,
+            @Valid @RequestBody UpdateReadingStatusRequest request
+    ) {
+
+        String email = authentication.getName();
+
+        UserBook updatedUserBook =
+                userBookService.updateReadingStatus(
+                        email,
+                        bookId,
+                        request.getReadingStatus()
+                );
+
+        return ResponseEntity.ok(updatedUserBook);
     }
 }
