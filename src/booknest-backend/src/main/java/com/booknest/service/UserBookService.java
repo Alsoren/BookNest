@@ -1,18 +1,17 @@
 package com.booknest.service;
 
-import com.booknest.model.Book;
-import com.booknest.model.ReadingStatus;
-import com.booknest.model.User;
-import com.booknest.model.UserBook;
+import com.booknest.dto.CategoryPreferenceResponse;
+import com.booknest.model.*;
 import com.booknest.repository.BookRepository;
 import com.booknest.repository.UserBookRepository;
 import com.booknest.repository.UserRepository;
+import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.List;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -61,6 +60,32 @@ public class UserBookService {
                 .build();
 
         return userBookRepository.save(userBook);
+    }
+
+    public void removeBookFromUser(
+            String email,
+            Long bookId
+    ) {
+
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() ->
+                        new RuntimeException(
+                                "Kullanıcı bulunamadı"
+                        )
+                );
+
+        UserBook userBook = userBookRepository
+                .findByUserIdAndBookId(
+                        user.getId(),
+                        bookId
+                )
+                .orElseThrow(() ->
+                        new RuntimeException(
+                                "Kitap kullanıcının kütüphanesinde bulunamadı"
+                        )
+                );
+
+        userBookRepository.delete(userBook);
     }
 
     public List<UserBook> getUserBooks(String email) {
@@ -144,5 +169,67 @@ public class UserBookService {
         userBook.setReadingStatus(readingStatus);
 
         return userBookRepository.save(userBook);
+    }
+
+    @Transactional(readOnly = true)
+    public List<CategoryPreferenceResponse>
+    getMostPreferredCategories(String email){
+        User user = userRepository.findByEmail(email).orElseThrow(() ->
+                new RuntimeException(
+                        "Kullanıcı bulunamadı"
+                ));
+
+        List<UserBook> userBooks =
+                userBookRepository.findByUserId(
+                        user.getId()
+                );
+
+        Map<Long, CategoryPreferenceResponse>
+                categoryCounts = new HashMap<>();
+
+        for (UserBook userBook : userBooks){
+            Book book = userBook.getBook();
+
+            if (
+                    book == null || book.getCategories() == null
+            ){
+                continue;
+            }
+
+            for (Category category : book.getCategories()) {
+                CategoryPreferenceResponse existing =
+                        categoryCounts.get(
+                                category.getId()
+                        );
+                if (existing == null) {
+                    categoryCounts.put(
+                            category.getId(),
+                            new CategoryPreferenceResponse(
+                                    category.getId(),
+                                    category.getName(),
+                                    1
+                            )
+                    );
+                }else {
+
+                    existing.setBookCount(
+                            existing.getBookCount() +  1
+                    );
+                }
+            }
+        }
+
+        List<CategoryPreferenceResponse> result =
+                new ArrayList<>(
+                        categoryCounts.values()
+                );
+
+        result.sort(
+                Comparator.comparing(
+                        CategoryPreferenceResponse :: getBookCount
+                ).reversed().thenComparing(CategoryPreferenceResponse :: getCategoryName)
+        );
+
+        return result;
     }
 }

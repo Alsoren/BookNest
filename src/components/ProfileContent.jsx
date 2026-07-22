@@ -90,7 +90,7 @@ function ProfileContent() {
             <h2>Şu Anda Okuyorum</h2>
           </div>
 
-          <Link className="profile-panel-link" to="/reading-books">
+          <Link className="profile-panel-link" to="/library">
             Tümünü Gör
           </Link>
         </header>

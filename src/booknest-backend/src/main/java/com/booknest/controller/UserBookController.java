@@ -44,6 +44,21 @@ public class UserBookController {
                 .body(savedUserBook);
     }
 
+    @DeleteMapping("/me/book/{bookId}")
+    public ResponseEntity<Void> removeBookFromLibrary(
+            Authentication authentication,
+            @PathVariable Long bookId
+    ) {
+        String email = authentication.getName();
+
+        userBookService.removeBookFromUser(
+                email,
+                bookId
+        );
+
+        return ResponseEntity.noContent().build();
+    }
+
     // Giriş yapan kullanıcının bütün kitaplarını getirir
     @GetMapping("/me")
     public ResponseEntity<List<UserBook>> getMyBooks(

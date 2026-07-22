@@ -1,17 +1,36 @@
 import "../Styles/CheckBox.css";
 
-function Checkbox({ label, checked, onChange }) {
+function Checkbox({
+  label,
+  checked,
+  onChange,
+  type = "checkbox",
+  name,
+  value,
+  disabled = false,
+}) {
   return (
-    <label className="checkbox-wrapper">
+    <label
+      className={`checkbox-wrapper ${
+        checked ? "checked" : ""
+      } ${disabled ? "disabled" : ""}`}
+    >
       <input
-        type="checkbox"
+        type={type}
+        name={name}
+        value={value}
         checked={checked}
         onChange={onChange}
+        disabled={disabled}
       />
 
-      <span className="custom-checkbox"></span>
+      <span className="custom-checkbox">
+        {checked ? "✓" : ""}
+      </span>
 
-      <span className="checkbox-label">{label}</span>
+      <span className="checkbox-label">
+        {label}
+      </span>
     </label>
   );
 }

@@ -36,7 +36,6 @@
 }
 
 .checkbox-wrapper input:checked + .custom-checkbox::after {
-  content: "✓";
   color: #12181D;
   font-size: 12px;
   font-weight: bold;

@@ -118,7 +118,7 @@ function Navbar1() {
                       </NavLink>
 
                       <NavLink
-                          to="/about"
+                          to="/profile"
                           className={({ isActive }) =>
                               isActive
                                   ? "navbar-link active"
@@ -153,13 +153,6 @@ function Navbar1() {
                     </>
                 ) : (
                     <>
-                        <NavLink
-                            to="/profile"
-                            className="login-button"
-                        >
-                            <FiUser className="navbar-button-icon" />
-                            Profilim
-                        </NavLink>
 
                         <button
                             type="button"
