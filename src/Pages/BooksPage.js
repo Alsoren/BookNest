@@ -1,23 +1,91 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
 import Navbar1 from "../components/Navbar1";
 import BookCard from "../components/BookCard";
 import BookDetails from "../components/BookDetails";
-import books from "../data/books";
+
 import "../Styles/BooksPage.css";
+
+const API_BASE_URL = "http://localhost:8080";
 
 function BooksPage() {
   const booksPerPage = 24;
 
+  const [books, setBooks] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
   const [selectedBook, setSelectedBook] = useState(null);
 
-  const totalPages = Math.ceil(books.length / booksPerPage);
+  const totalPages = Math.ceil(
+    books.length / booksPerPage
+  );
 
-  const startIndex = (currentPage - 1) * booksPerPage;
+  const startIndex =
+    (currentPage - 1) * booksPerPage;
+
   const currentBooks = books.slice(
     startIndex,
     startIndex + booksPerPage
   );
+
+  useEffect(() => {
+    async function fetchBooks() {
+      try {
+        setLoading(true);
+        setError("");
+
+        const response = await fetch(
+          `${API_BASE_URL}/api/books`
+        );
+
+        if (!response.ok) {
+          throw new Error(
+            `Kitaplar alınamadı. HTTP durum kodu: ${response.status}`
+          );
+        }
+
+        const data = await response.json();
+
+        if (Array.isArray(data)) {
+          setBooks(data);
+        } else if (Array.isArray(data.content)) {
+          setBooks(data.content);
+        } else {
+          throw new Error(
+            "Backend beklenen kitap listesini döndürmedi."
+          );
+        }
+      } catch (fetchError) {
+        console.error(
+          "Kitaplar çekilirken hata:",
+          fetchError
+        );
+
+        setError(
+          fetchError.message ||
+            "Kitaplar yüklenirken bir hata oluştu."
+        );
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchBooks();
+  }, []);
+
+  function goToPreviousPage() {
+    setCurrentPage((previousPage) =>
+      Math.max(previousPage - 1, 1)
+    );
+  }
+
+  function goToNextPage() {
+    setCurrentPage((previousPage) =>
+      Math.min(previousPage + 1, totalPages)
+    );
+  }
 
   return (
     <div className="page-cover">
@@ -25,42 +93,89 @@ function BooksPage() {
 
       <div className="books-content-cover">
         <div className="books-page">
+          {loading && (
+            <p className="books-message">
+              Kitaplar yükleniyor...
+            </p>
+          )}
 
-          <div className="books-grid">
-            {currentBooks.map((book) => (
-              <BookCard
-                key={book.id}
-                book={book}
-                onClick={() => setSelectedBook(book)}
-              />
-            ))}
-          </div>
+          {error && (
+            <p className="books-error">
+              {error}
+            </p>
+          )}
 
-          <div className="pagination">
-            <button
-              onClick={() => setCurrentPage(currentPage - 1)}
-              disabled={currentPage === 1}
-            >
-              ← Previous
-            </button>
+          {!loading &&
+            !error &&
+            books.length === 0 && (
+              <p className="books-message">
+                Veritabanında kitap bulunamadı.
+              </p>
+            )}
 
-            {[...Array(totalPages)].map((_, index) => (
-              <button
-                key={index}
-                className={currentPage === index + 1 ? "active" : ""}
-                onClick={() => setCurrentPage(index + 1)}
-              >
-                {index + 1}
-              </button>
-            ))}
+          {!loading &&
+            !error &&
+            currentBooks.length > 0 && (
+              <>
+                <div className="books-grid">
+                  {currentBooks.map((book) => (
+                    <BookCard
+                      key={book.id}
+                      book={book}
+                      onClick={() =>
+                        setSelectedBook(book)
+                      }
+                    />
+                  ))}
+                </div>
 
-            <button
-              onClick={() => setCurrentPage(currentPage + 1)}
-              disabled={currentPage === totalPages}
-            >
-              Next →
-            </button>
-          </div>
+                {totalPages > 1 && (
+                  <div className="pagination">
+                    <button
+                      type="button"
+                      onClick={goToPreviousPage}
+                      disabled={currentPage === 1}
+                    >
+                      ← Previous
+                    </button>
+
+                    {Array.from(
+                      { length: totalPages },
+                      (_, index) => {
+                        const pageNumber = index + 1;
+
+                        return (
+                          <button
+                            type="button"
+                            key={pageNumber}
+                            className={
+                              currentPage === pageNumber
+                                ? "active"
+                                : ""
+                            }
+                            onClick={() =>
+                              setCurrentPage(pageNumber)
+                            }
+                          >
+                            {pageNumber}
+                          </button>
+                        );
+                      }
+                    )}
+
+                    <button
+                      type="button"
+                      onClick={goToNextPage}
+                      disabled={
+                        currentPage === totalPages
+                      }
+                    >
+                      Next →
+                    </button>
+                  </div>
+                )}
+              </>
+            )}
         </div>
       </div>
 

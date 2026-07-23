@@ -39,8 +39,8 @@
 }
 
 .profile-panel-title img {
-  width: 28px;
-  height: 28px;
+  width: 48px;
+  height: 48px;
   flex-shrink: 0;
   object-fit: contain;
 }
@@ -224,6 +224,33 @@
 
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.category-progress-list {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.category-state-message {
+  min-height: 250px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin: 0;
+  padding: 20px;
+
+  color: #aab4c0;
+  font-size: 14px;
+  text-align: center;
+}
+
+.category-error {
+  color: #ff9d9d;
 }
 
 .reading-book-rating {

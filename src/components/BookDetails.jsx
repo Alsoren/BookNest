@@ -34,6 +34,40 @@ function BookDetails({ book, onClose }) {
     book.imageUrl ||
     `/book-images/book-${book.id}.jpg`;
 
+
+
+  const categoryText = (() => {
+  // Backend örneği:
+  // categories: [{ id: 1, name: "Roman" }]
+  if (Array.isArray(book.categories)) {
+    return book.categories
+      .map((category) => {
+        if (typeof category === "string") {
+          return category;
+        }
+
+        return category?.name;
+      })
+      .filter(Boolean)
+      .join(", ");
+  }
+
+  // Frontend sabit kitap verisi:
+  // category: "Fantasy"
+  if (typeof book.category === "string") {
+    return book.category;
+  }
+
+  // Tek bir kategori nesnesi gelirse:
+  // category: { id: 1, name: "Fantasy" }
+  if (book.category?.name) {
+    return book.category.name;
+  }
+
+  return "";
+})();
+
+
   /*
    * Kitabın kullanıcının kütüphanesinde olup
    * olmadığını kontrol eder. useCallback ile
@@ -457,7 +491,16 @@ function BookDetails({ book, onClose }) {
         </button>
 
         <div className="popup-content">
-          <h2>{book.title}</h2>
+          <h2>
+            {book.title}
+
+            {categoryText && (
+              <span className="book-title-category">
+                {" / "}
+                {categoryText}
+              </span>
+            )}
+          </h2>
 
           <p>
             <strong>Yazar:</strong>{" "}

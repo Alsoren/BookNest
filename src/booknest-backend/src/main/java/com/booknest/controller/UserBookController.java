@@ -1,6 +1,7 @@
 package com.booknest.controller;
 
 import com.booknest.dto.AddUserBookRequest;
+import com.booknest.dto.CategoryPreferenceResponse;
 import com.booknest.dto.UpdateReadingStatusRequest;
 import com.booknest.model.ReadingStatus;
 import com.booknest.model.UserBook;
@@ -127,5 +128,16 @@ public class UserBookController {
                 );
 
         return ResponseEntity.ok(updatedUserBook);
+    }
+
+    @GetMapping("/me/top-categories")
+    public ResponseEntity<List<CategoryPreferenceResponse>>
+    getMyTopCategories(Authentication authentication){
+        String email = authentication.getName();
+
+        List<CategoryPreferenceResponse> categories =
+                userBookService.getMostPreferredCategories(email);
+
+        return ResponseEntity.ok(categories);
     }
 }

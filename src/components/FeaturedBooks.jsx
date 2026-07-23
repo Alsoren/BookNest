@@ -8,17 +8,24 @@ import {
   FaArrowRight,
 } from "react-icons/fa";
 
-import books from "../data/books";
 import BookCard from "./BookCard";
 import BookDetails from "./BookDetails";
 
+const API_BASE_URL = "http://localhost:8080";
+
 function FeaturedBooks() {
+  const [books, setBooks] = useState([]);
   const [selectedBook, setSelectedBook] = useState(null);
+
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
   const [canGoLeft, setCanGoLeft] = useState(false);
-  const [canGoRight, setCanGoRight] = useState(true);
+  const [canGoRight, setCanGoRight] = useState(false);
 
   const sliderRef = useRef(null);
 
+  // Backend'den gelen ilk 12 kitabı gösterir.
   const featuredBooks = books.slice(0, 12);
 
   function updateButtons() {
@@ -42,15 +49,15 @@ function FeaturedBooks() {
     if (!slider) return;
 
     const firstCard = slider.querySelector(".book-card");
+    const cardsContainer = slider.querySelector(".book-cards");
 
-    if (!firstCard) return;
+    if (!firstCard || !cardsContainer) return;
 
-    const cardsContainer =
-      slider.querySelector(".book-cards");
+    const computedStyle =
+      window.getComputedStyle(cardsContainer);
 
-    const gap = parseFloat(
-      window.getComputedStyle(cardsContainer).columnGap
-    );
+    const gap =
+      parseFloat(computedStyle.columnGap) || 0;
 
     const cardWidth = firstCard.offsetWidth;
 
@@ -61,18 +68,69 @@ function FeaturedBooks() {
   }
 
   useEffect(() => {
-    updateButtons();
+    async function fetchBooks() {
+      try {
+        setLoading(true);
+        setError("");
+
+        const response = await fetch(
+          `${API_BASE_URL}/api/books`
+        );
+
+        if (!response.ok) {
+          throw new Error(
+            `Kitaplar alınamadı. HTTP durum kodu: ${response.status}`
+          );
+        }
+
+        const data = await response.json();
+
+        // Endpoint doğrudan dizi döndürüyorsa:
+        if (Array.isArray(data)) {
+          setBooks(data);
+        }
+        // Spring Page<Book> döndürüyorsa:
+        else if (Array.isArray(data.content)) {
+          setBooks(data.content);
+        } else {
+          throw new Error(
+            "Backend beklenen kitap listesini döndürmedi."
+          );
+        }
+      } catch (fetchError) {
+        console.error("Kitaplar çekilirken hata:", fetchError);
+
+        setError(
+          fetchError.message ||
+            "Kitaplar yüklenirken bir hata oluştu."
+        );
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchBooks();
+  }, []);
+
+  useEffect(() => {
+    // Kitaplar render edildikten sonra slider sınırlarını hesaplar.
+    const animationFrameId = requestAnimationFrame(
+      updateButtons
+    );
 
     window.addEventListener("resize", updateButtons);
 
     return () => {
-      window.removeEventListener("resize", updateButtons);
+      cancelAnimationFrame(animationFrameId);
+      window.removeEventListener(
+        "resize",
+        updateButtons
+      );
     };
-  }, []);
+  }, [books]);
 
   return (
     <section className="featured-section">
-
       <div className="section-header">
         <h2>Featured Books</h2>
 
@@ -82,47 +140,67 @@ function FeaturedBooks() {
         </Link>
       </div>
 
-      <div className="book-slider-cover">
+      {loading && (
+        <p className="featured-message">
+          Kitaplar yükleniyor...
+        </p>
+      )}
 
-        {canGoLeft && (
-          <button
-            type="button"
-            className="slider-arrow slider-arrow-left"
-            onClick={() => slide(-1)}
-            aria-label="Önceki kitaplar"
+      {error && (
+        <p className="featured-error">
+          {error}
+        </p>
+      )}
+
+      {!loading && !error && featuredBooks.length === 0 && (
+        <p className="featured-message">
+          Veritabanında gösterilecek kitap bulunamadı.
+        </p>
+      )}
+
+      {!loading && !error && featuredBooks.length > 0 && (
+        <div className="book-slider-cover">
+          {canGoLeft && (
+            <button
+              type="button"
+              className="slider-arrow slider-arrow-left"
+              onClick={() => slide(-1)}
+              aria-label="Önceki kitaplar"
+            >
+              <FaChevronLeft />
+            </button>
+          )}
+
+          <div
+            ref={sliderRef}
+            className="book-slider"
+            onScroll={updateButtons}
           >
-            <FaChevronLeft />
-          </button>
-        )}
-
-        <div
-          ref={sliderRef}
-          className="book-slider"
-          onScroll={updateButtons}
-        >
-          <div className="book-cards">
-            {featuredBooks.map((book) => (
-              <BookCard
-                key={book.id}
-                book={book}
-                onClick={() => setSelectedBook(book)}
-              />
-            ))}
+            <div className="book-cards">
+              {featuredBooks.map((book) => (
+                <BookCard
+                  key={book.id}
+                  book={book}
+                  onClick={() =>
+                    setSelectedBook(book)
+                  }
+                />
+              ))}
+            </div>
           </div>
+
+          {canGoRight && (
+            <button
+              type="button"
+              className="slider-arrow slider-arrow-right"
+              onClick={() => slide(1)}
+              aria-label="Sonraki kitaplar"
+            >
+              <FaChevronRight />
+            </button>
+          )}
         </div>
-
-        {canGoRight && (
-          <button
-            type="button"
-            className="slider-arrow slider-arrow-right"
-            onClick={() => slide(1)}
-            aria-label="Sonraki kitaplar"
-          >
-            <FaChevronRight />
-          </button>
-        )}
-
-      </div>
+      )}
 
       {selectedBook && (
         <BookDetails
@@ -130,7 +208,6 @@ function FeaturedBooks() {
           onClose={() => setSelectedBook(null)}
         />
       )}
-
     </section>
   );
 }
