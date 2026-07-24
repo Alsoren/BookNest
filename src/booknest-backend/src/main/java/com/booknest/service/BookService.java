@@ -77,4 +77,8 @@ public class BookService {
                         new RuntimeException("Kitap bulunamadı")
                 );
     }
+
+    public List<Book> getBooksByCategoryId(Long categoryId) {
+        return bookRepository.findDistinctByCategories_Id(categoryId);
+    }
 }

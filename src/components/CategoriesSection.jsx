@@ -32,10 +32,14 @@ function CategoriesSection() {
 
         <div className="categories-cards">
           {visibleCategories.map((category) => (
-            <CategoryCard
-              key={category.id}
-              category={category}
-            />
+              <Link to={`/books/category/${category.id}`}>
+
+                <CategoryCard
+                  key={category.id}
+                  category={category}
+                />
+
+              </Link>
           ))}
         </div>
 

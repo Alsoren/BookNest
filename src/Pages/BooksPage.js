@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
 import Navbar1 from "../components/Navbar1";
 import BookCard from "../components/BookCard";
@@ -11,11 +12,16 @@ const API_BASE_URL = "http://localhost:8080";
 function BooksPage() {
   const booksPerPage = 24;
 
+  const { categoryId } = useParams();
+
   const [books, setBooks] = useState([]);
+  const [categoryName, setCategoryName] = useState("");
+
   const [currentPage, setCurrentPage] = useState(1);
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+
   const [selectedBook, setSelectedBook] = useState(null);
 
   const totalPages = Math.ceil(
@@ -35,10 +41,13 @@ function BooksPage() {
       try {
         setLoading(true);
         setError("");
+        setCurrentPage(1);
 
-        const response = await fetch(
-          `${API_BASE_URL}/api/books`
-        );
+        const endpoint = categoryId
+          ? `${API_BASE_URL}/api/books/category/${categoryId}`
+          : `${API_BASE_URL}/api/books`;
+
+        const response = await fetch(endpoint);
 
         if (!response.ok) {
           throw new Error(
@@ -48,20 +57,44 @@ function BooksPage() {
 
         const data = await response.json();
 
+        let fetchedBooks = [];
+
         if (Array.isArray(data)) {
-          setBooks(data);
+          fetchedBooks = data;
         } else if (Array.isArray(data.content)) {
-          setBooks(data.content);
+          fetchedBooks = data.content;
         } else {
           throw new Error(
             "Backend beklenen kitap listesini döndürmedi."
           );
+        }
+
+        setBooks(fetchedBooks);
+
+        if (
+          categoryId &&
+          fetchedBooks.length > 0 &&
+          Array.isArray(fetchedBooks[0].categories)
+        ) {
+          const selectedCategory =
+            fetchedBooks[0].categories.find(
+              (category) =>
+                String(category.id) === String(categoryId)
+            );
+
+          setCategoryName(
+            selectedCategory?.name || "Kategori"
+          );
+        } else {
+          setCategoryName("");
         }
       } catch (fetchError) {
         console.error(
           "Kitaplar çekilirken hata:",
           fetchError
         );
+
+        setBooks([]);
 
         setError(
           fetchError.message ||
@@ -73,7 +106,7 @@ function BooksPage() {
     }
 
     fetchBooks();
-  }, []);
+  }, [categoryId]);
 
   function goToPreviousPage() {
     setCurrentPage((previousPage) =>
@@ -93,6 +126,7 @@ function BooksPage() {
 
       <div className="books-content-cover">
         <div className="books-page">
+
           {loading && (
             <p className="books-message">
               Kitaplar yükleniyor...
@@ -109,7 +143,9 @@ function BooksPage() {
             !error &&
             books.length === 0 && (
               <p className="books-message">
-                Veritabanında kitap bulunamadı.
+                {categoryId
+                  ? "Bu kategoriye ait kitap bulunamadı."
+                  : "Veritabanında kitap bulunamadı."}
               </p>
             )}
 

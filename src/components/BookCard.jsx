@@ -13,7 +13,7 @@ function BookCard({ book, onClick }) {
       <div className="book-card-content">
         <p>{book.author}</p>
 
-        <span><FaStar color="#F5CC41" /> {book.rating}</span>
+        <span><FaStar color="#F5CC41" /> {book.externalRating}</span>
       </div>
     </div>
   );

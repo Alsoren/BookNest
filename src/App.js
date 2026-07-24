@@ -11,14 +11,18 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        
+        Ho
         <Route path="/" element={<HomePage />} />
         <Route path="/home" element={<HomePage />} />
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/library" element={<LibraryPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/bookspage" element={<BooksPage />} />
+        <Route path="/books" element={<BooksPage />} />
+        <Route
+          path="/books/category/:categoryId"
+          element={<BooksPage />}
+        />
 
       </Routes> 
     </BrowserRouter>

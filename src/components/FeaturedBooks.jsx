@@ -134,7 +134,7 @@ function FeaturedBooks() {
       <div className="section-header">
         <h2>Featured Books</h2>
 
-        <Link to="/bookspage" className="view-all">
+        <Link to="/books" className="view-all">
           View All
           <FaArrowRight />
         </Link>
