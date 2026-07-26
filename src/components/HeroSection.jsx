@@ -24,17 +24,11 @@ function HeroSection() {
           </p>
 
           <div className="hero-buttons">
+            
             <Link to="/bookspage" className="view-all">
               <button className="primary-btn">
                 <FiBookOpen />
                 Kitapları Keşfet
-              </button>
-            </Link>
-
-            <Link to="/register">
-              <button className="secondary-btn" >
-                <FiUser />
-                Hesap Oluştur
               </button>
             </Link>
 

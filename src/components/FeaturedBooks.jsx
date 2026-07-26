@@ -132,10 +132,10 @@ function FeaturedBooks() {
   return (
     <section className="featured-section">
       <div className="section-header">
-        <h2>Featured Books</h2>
+        <h2>Kitapları Keşfet</h2>
 
         <Link to="/books" className="view-all">
-          View All
+          Tüm Kitaplar
           <FaArrowRight />
         </Link>
       </div>

@@ -94,40 +94,48 @@ function LoginForm() {
 
             <div className="input-group">
                 <MdOutlineMail size={21} color="#B99163" />
-                <input type="email"
-                placeholder="Email address"
-                value={email}
-                onChange={(event) => setEmail(event.target.value)} />
+                <input
+                    type="email"
+                    placeholder="E-posta adresi"
+                    value={email}
+                    onChange={(event) => setEmail(event.target.value)}
+                />
             </div>
 
             <div className="input-group">
                 <TbLock size={21} color="#B99163" />
                 <input
-                type="password"
-                placeholder="Password"
-                value={password}
-                onChange={(event) => setPassword(event.target.value)}/>
-            </div>  
+                    type="password"
+                    placeholder="Şifre"
+                    value={password}
+                    onChange={(event) => setPassword(event.target.value)}
+                />
+            </div>
+
             <div className="remember-row">
                 <Checkbox
-                    label="Remember me"
+                    label="Beni hatırla"
                     checked={rememberMe}
                     onChange={(e) => setRememberMe(e.target.checked)}
                 />
             </div>
 
             <button type="submit" disabled={loading}>
-                {loading ? 'Giriş yapılıyor...' : 'Log in'}
+                {loading ? "Giriş yapılıyor..." : "Giriş yap"}
             </button>
 
             <div className="section-divider">
                 <span className="divider-line"></span>
-                <img src={bookIcon} alt="BookNest icon" className="brand-icon-alt" />
+                <img
+                    src={bookIcon}
+                    alt="BookNest simgesi"
+                    className="brand-icon-alt"
+                />
                 <span className="divider-line"></span>
             </div>
 
             <a href="#" className="forgot-password">
-                Forgot password
+                Şifremi unuttum
                 <IoIosArrowForward className="forgot-icon" />
             </a>
         </form>

@@ -65,8 +65,7 @@
   gap: 18px;
 }
 
-.primary-btn,
-.secondary-btn {
+.primary-btn {
   height: 46px;
   padding: 0 18px;
   border-radius: 8px;
@@ -87,18 +86,6 @@
 .primary-btn:hover {
   border: none;
   background-color: #f7cc80;
-}
-
-.secondary-btn {
-  background-color: transparent;
-  color: #d8c7b1;
-  border: 1px solid #FABA4A;
-}
-
-.secondary-btn:hover {
-  background-color: #0d1820;
-  color: #d8c7b1;
-  border: 1px solid #c8955d;
 }
 
 .hero-stats {

@@ -20,11 +20,13 @@ function LoginPage() {
         <div className="login-card-right">
           <div className="login-top-header">
             <div className="login-header">
-              <h1>Welcome Back</h1>
+
+              <h1>Tekrar Hoş Geldiniz</h1>
               <p>
-                Log in to your account and <br />
-                continue your reading journey.
+                Hesabınıza giriş yapın ve <br />
+                okuma yolculuğunuza devam edin.
               </p>
+
             </div>
             <div className="mascot-container">
               <img src={Mascot} alt="BookNest mascot" className="brand-mascot" />

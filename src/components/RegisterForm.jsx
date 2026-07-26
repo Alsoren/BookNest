@@ -117,47 +117,57 @@ function RegisterForm() {
 
             <div className="input-group">
                 <IoIosPerson size={21} color="#B99163" />
-                <input type="text"
-                placeholder="Full Name"
-                value={name}
-                onChange={(event) => setName(event.target.value)} />
+                <input
+                    type="text"
+                    placeholder="Ad Soyad"
+                    value={name}
+                    onChange={(event) => setName(event.target.value)}
+                />
             </div>
 
             <div className="input-group">
                 <MdOutlineMail size={21} color="#B99163" />
-                <input type="email"
-                placeholder="Email address"
-                value={email}
-                onChange={(event) => setEmail(event.target.value)} />
-            </div> 
+                <input
+                    type="email"
+                    placeholder="E-posta adresi"
+                    value={email}
+                    onChange={(event) => setEmail(event.target.value)}
+                />
+            </div>
 
             <div className="input-group">
                 <TbLock size={21} color="#B99163" />
                 <input
-                type="password"
-                placeholder="Password"
-                value={password}
-                onChange={(event) => setPassword(event.target.value)}/>
-            </div>  
+                    type="password"
+                    placeholder="Şifre"
+                    value={password}
+                    onChange={(event) => setPassword(event.target.value)}
+                />
+            </div>
 
             <div className="input-group">
                 <TbLock size={21} color="#B99163" />
                 <input
-                type="password"
-                placeholder="Confirm Password"
-                value={confirmPassword}
-                onChange={(event) => setConfirmPassword(event.target.value)}/>
-            </div>  
+                    type="password"
+                    placeholder="Şifreyi doğrula"
+                    value={confirmPassword}
+                    onChange={(event) => setConfirmPassword(event.target.value)}
+                />
+            </div>
 
             <div className="section-divider">
                 <span className="divider-line"></span>
-                <img src={bookIcon} alt="BookNest icon" className="brand-icon-alt" />
+                <img
+                    src={bookIcon}
+                    alt="BookNest simgesi"
+                    className="brand-icon-alt"
+                />
                 <span className="divider-line"></span>
             </div>
 
             <div className="checkbox-row">
                 <Checkbox
-                    label="I agree to the terms and conditions"
+                    label="Şartları ve koşulları kabul ediyorum"
                     checked={agreeToTerms}
                     onChange={(e) => setAgreeToTerms(e.target.checked)}
                 />
@@ -165,16 +175,15 @@ function RegisterForm() {
 
             <div className="checkbox-row">
                 <Checkbox
-                    label="Notify me on email about new products and updates"
+                    label="Yeni ürünler ve güncellemeler hakkında e-posta ile bilgilendirilmek istiyorum"
                     checked={agreeToUpdates}
                     onChange={(e) => setAgreeToUpdates(e.target.checked)}
                 />
             </div>
 
             <button type="submit" disabled={loading}>
-                {loading ? 'Creating account...' : 'Create Account'}
+                {loading ? "Hesap oluşturuluyor..." : "Hesap Oluştur"}
             </button>
-
         </form>
     );
 }
